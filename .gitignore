@@ -1,0 +1,65 @@
+# ========================
+# Python
+# ========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+dist/
+build/
+
+# ========================
+# Virtual Environment (MAIN REASON for 4k files)
+# ========================
+venv/
+.env/
+.env.*
+
+# ========================
+# Django
+# ========================
+*.log
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+
+# Django migrations cache
+**/migrations/__pycache__/
+
+# ========================
+# IDE / Editors
+# ========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ========================
+# OS files
+# ========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ========================
+# Node / Frontend (just in case)
+# ========================  
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ========================
+# Testing / Coverage
+# ========================
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ========================
+# Git
+# ========================
+*.orig

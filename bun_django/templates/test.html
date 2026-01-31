@@ -1,0 +1,36 @@
+{% load tags %}
+{% load static %}
+{% workk as func %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/test.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Empty</h1>
+    <a href="?name=asdasd&year=13">hmmmm</a>
+
+
+
+    
+    <div class="top-navbar">
+    <form class="search-form" method="GET" action="{% url 'home' %}">
+        <input type="text" name="q" placeholder="Search...">
+        <button type="submit">Search</button>
+    </form>
+
+    <div class="filter-dropdown">
+        <button class="filter-btn">Filter <span>▼</span></button>
+        <div class="dropdown-content">
+            <a href="?sort=newest">Normal holat (Yangi)</a>
+            <a href="?sort=price_asc">Narx: O'sish tartibida</a>
+            <a href="?sort=price_desc">Narx: Kamayish tartibida</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

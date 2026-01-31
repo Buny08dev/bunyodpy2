@@ -1,0 +1,111 @@
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    padding-bottom: 20px;
+}
+
+.step-links {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.page-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 10px;
+    background: #3a3a3a; /* Tugma foni */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.page-link:hover {
+    background: #4a4a4a;
+}
+
+.page-link.current {
+    background: #c2c2c2; /* Aktiv sahifa foni - rasmdagi kabi kulrang */
+    color: #1e1e1e;      /* Aktiv sahifa raqami rangi */
+    font-weight: bold;
+}
+
+/* Rasmdagi qora dumaloq o'ngga yo'naltirish tugmasi */
+.next-btn {
+    background: #000;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    min-width: 35px;
+}
+
+.arrow-right {
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+/* Filter Dropdown konteyneri */
+.filter-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Filter tugmasi */
+.filter-btn {
+    background: #2f2f2f;
+    color: white;
+    border: 1px solid #444;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.filter-btn:hover {
+    border-color: #ff4b4b;
+}
+
+/* Ochiladigan menyu (yashirin holda) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #1e1e1e;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+    z-index: 100;
+    border-radius: 8px;
+    border: 1px solid #333;
+    margin-top: 5px;
+}
+
+/* Linklar */
+.dropdown-content a {
+    color: #ddd;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+.dropdown-content a:hover {
+    background-color: #2f2f2f;
+    color: #ff4b4b;
+}
+
+/* Tugma bosilganda yoki sichqoncha ustiga kelganda ko'rsatish */
+.filter-dropdown:hover .dropdown-content {
+    display: block;
+}
