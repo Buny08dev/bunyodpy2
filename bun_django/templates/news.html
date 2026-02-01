@@ -21,7 +21,7 @@
         <div class="dropdown-content">
             <a href="?default=all">Normal holat</a>
             <a href="?on_sale=price">Narx: O'sish</a>
-            <a href="?on_sela=-price">Narx: Kamayish</a>
+            <a href="?on_sale=-price">Narx: Kamayish</a>
         </div>
     </div>
 
@@ -53,8 +53,10 @@
             <div class="actions">
               <a class="btn update" href="{% url 'product_slug' n.category.slug n.slug %}">Info</a>
               
-                <!-- <a class="btn update" href="">Update</a>
-                <a class="btn delete" href="">Delete</a> -->
+                <a class="btn update" href="{% url 'update' n.slug %}">Update</a>
+                <form action="{% url 'delete' n.slug %}" method="post">{% csrf_token %}
+                    <input class="btn delete" type="submit" value="delete">
+                </form>
             </div>
         </div>
     </div>

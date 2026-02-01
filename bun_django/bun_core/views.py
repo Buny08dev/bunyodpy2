@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect, get_object_or_404,get_list_or_404
 from django.http import HttpResponse
-from django.views.generic import FormView,ListView,View,DetailView,TemplateView
+from django.views.generic import FormView,ListView,View,DetailView,TemplateView,DeleteView,UpdateView
 from django.core.paginator import Paginator
+from django.urls import reverse_lazy
 
 from bun_core.forms import AddProduct
 from bun_core.models import bunbase,Categories,Products
@@ -29,17 +30,27 @@ class NewsView(ListView):
     template_name="news.html"
     paginate_by=4
     
+    def get_queryset(self,*args,**kwargs):
+        queryset = super().get_queryset(*args,**kwargs)
+        # print("\n",self.request.GET.get("on_sale"),"\n")
+        pr=self.request.GET.get("defdult")
+        if pr:
+            queryset=queryset.all()
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        print(queryset,"\n",self.kwargs,"\n")
+        pr_1=self.request.GET.get("on_sale")
+        if pr_1:
+            queryset=queryset.all().order_by(pr_1)
+            print(queryset.all().order_by(pr_1),pr_1)
+
         slug=self.kwargs.get("slug")
         if slug:
             queryset=queryset.filter(category__slug=slug)
+        
         return queryset
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # print("\n",context,"\n")
         context["categories"] = Categories.objects.all()
         context["products"]=context['page_obj']
         return context
@@ -68,6 +79,7 @@ def test(request):
 
 def create_(request):
     if request.method=="POST":
+        print("ishladi")
         form=AddProduct(request.POST,request.FILES)
         if form.is_valid():
             form.save()
@@ -75,25 +87,33 @@ def create_(request):
     form=AddProduct()
     return render(request, "main.html",{"agree":"yes","form":form})
 
+class UpdateProductView(UpdateView):
+    model=Products
+    form_class=AddProduct
+    template_name="main.html"
+    success_url=reverse_lazy('news')
+
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        context["agree"]="agree"
+        return context
+    
 def update_(request,id):
     if request.method=="POST":
         obj=bunbase.objects.get(id=id)
-
         obj.title = request.POST.get("title")
         obj.description = request.POST.get("description")
         obj.is_active = request.POST.get("is_active")
-
         if "image" in request.FILES:
             obj.image = request.FILES.get("image")
-
         obj.save()
         return redirect("news")
     return render(request, "main.html",{"agree":"yes"})
 
-def delete_(request,id):
-    Products.objects.get(id=id).delete()
-    return redirect("news")
 
+class DeleteProductView(DeleteView):
+    model=Products    
+    success_url=reverse_lazy('news')
 
 # Created your views here.
 
@@ -107,3 +127,7 @@ def delete_(request,id):
 #     if slug:
 #         prod=Products.objects.filter(category__slug=slug)
 #     return render(request, "news.html",{"products":prod,"categories":cat})
+
+# def delete_(request,id):
+#     Products.objects.get(id=id).delete()
+#     return redirect("news")

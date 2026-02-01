@@ -1,13 +1,9 @@
 {% if object %}
     <h2>Yangi ma’lumot qo‘shish</h2>
-
     
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <!-- Title (majburiy) -->
         {{form.as_p}}
-        <br>
-        <!-- Submit -->
         <button type="submit">Saqlash</button>
     </form>
 {% endif %}

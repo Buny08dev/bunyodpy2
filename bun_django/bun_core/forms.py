@@ -8,5 +8,5 @@ class AddProduct(forms.ModelForm):
         fields="__all__"
         exclude = ("slug",)
         widgets={
-            'name':forms.TextInput(attrs={"placeholder":"ism"})
+            'name':forms.TextInput(attrs={"placeholder":"name"})
         }
