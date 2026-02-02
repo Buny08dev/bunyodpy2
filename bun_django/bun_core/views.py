@@ -73,9 +73,9 @@ class AboutView(TemplateView):
 
 # TESTing
 def test(request):
-    print(request.GET.get("name"))
-    print(request.GET.get("year"))
-    print(request.GET)
+    # print(request.GET.get("name"))
+    # print(request.GET.get("year"))
+    # print(request.GET)
     # pagenation=Paginator(get_list_or_404(Products),2)
     # page_product=pagenation.page(page)
     return render(request,"test.html")

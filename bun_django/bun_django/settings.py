@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     "bun_core.apps.BunCoreConfig",
+    "bun_users.apps.BunUsersConfig"
 ]
 
 MIDDLEWARE = [
