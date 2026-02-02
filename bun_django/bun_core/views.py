@@ -28,24 +28,27 @@ class NewsView(ListView):
     model=Products
     context_object_name="products_"
     template_name="news.html"
-    paginate_by=4
+    paginate_by=3
     
     def get_queryset(self,*args,**kwargs):
         queryset = super().get_queryset(*args,**kwargs)
-        # print("\n",self.request.GET.get("on_sale"),"\n")
-        pr=self.request.GET.get("defdult")
+        # print("\n",self.request.GET,"\n1")
+
+        slug=self.request.GET.get("cat_slug")
+        if slug:
+            print(slug)
+            queryset=queryset.filter(category__slug=slug)
+
+
+        pr=self.request.GET.get("default")
         if pr:
             queryset=queryset.all()
 
         pr_1=self.request.GET.get("on_sale")
         if pr_1:
             queryset=queryset.all().order_by(pr_1)
-            print(queryset.all().order_by(pr_1),pr_1)
+            # print(queryset.all().order_by(pr_1),pr_1)
 
-        slug=self.kwargs.get("slug")
-        if slug:
-            queryset=queryset.filter(category__slug=slug)
-        
         return queryset
 
     def get_context_data(self, **kwargs):
