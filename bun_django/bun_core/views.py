@@ -3,9 +3,15 @@ from django.http import HttpResponse
 from django.views.generic import FormView,ListView,View,DetailView,TemplateView,DeleteView,UpdateView
 from django.core.paginator import Paginator
 from django.urls import reverse_lazy
-
+#  rest_framework
+from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView,UpdateAPIView,CreateAPIView,RetrieveUpdateDestroyAPIView
+from rest_framework.response import Response
+# 
 from bun_core.forms import AddProduct
 from bun_core.models import bunbase,Categories,Products
+from bun_core.serializers import ProductsApiForm
+
 # bunbase.objects.values("id", "title")
 
 # bunbase.objects.values_list("title", flat=True) only one o`zgaruvchi
@@ -18,6 +24,25 @@ from bun_core.models import bunbase,Categories,Products
 # ])  ishlatarman!!
 
 
+# Create your Apiviews here.
+# class ProductApi(APIView):
+#     def get(self,request):
+#         title=Products.objects.values()
+#         print(request.data)
+#         return Response({"title":title})
+
+
+class ProductApi(ListAPIView):
+   queryset=Products.objects.all()
+   serializer_class=ProductsApiForm
+
+class ProductViewApi(RetrieveUpdateDestroyAPIView):
+   queryset=Products.objects.all()
+   serializer_class=ProductsApiForm
+
+class ProductCreateApi(CreateAPIView):
+   queryset=Products.objects.all()
+   serializer_class=ProductsApiForm
 
 # Create your views here.
 class MainView(View):
@@ -71,15 +96,6 @@ class ProductView(DetailView):
 class AboutView(TemplateView):
     template_name="about.html"
 
-# TESTing
-def test(request):
-    # print(request.GET.get("name"))
-    # print(request.GET.get("year"))
-    # print(request.GET)
-    # pagenation=Paginator(get_list_or_404(Products),2)
-    # page_product=pagenation.page(page)
-    return render(request,"test.html")
-
 def create_(request):
     if request.method=="POST":
         print("ishladi")
@@ -100,23 +116,19 @@ class UpdateProductView(UpdateView):
         context=super().get_context_data(**kwargs)
         context["agree"]="agree"
         return context
-    
-def update_(request,id):
-    if request.method=="POST":
-        obj=bunbase.objects.get(id=id)
-        obj.title = request.POST.get("title")
-        obj.description = request.POST.get("description")
-        obj.is_active = request.POST.get("is_active")
-        if "image" in request.FILES:
-            obj.image = request.FILES.get("image")
-        obj.save()
-        return redirect("news")
-    return render(request, "main.html",{"agree":"yes"})
-
 
 class DeleteProductView(DeleteView):
     model=Products    
     success_url=reverse_lazy('news')
+
+# TESTing
+def test(request):
+    # print(request.GET.get("name"))
+    # print(request.GET.get("year"))
+    # print(request.GET)
+    # pagenation=Paginator(get_list_or_404(Products),2)
+    # page_product=pagenation.page(page)
+    return render(request,"test.html")
 
 # Created your views here.
 
@@ -134,3 +146,15 @@ class DeleteProductView(DeleteView):
 # def delete_(request,id):
 #     Products.objects.get(id=id).delete()
 #     return redirect("news")
+
+# def update_(request,id):
+#     if request.method=="POST":
+#         obj=bunbase.objects.get(id=id)
+#         obj.title = request.POST.get("title")
+#         obj.description = request.POST.get("description")
+#         obj.is_active = request.POST.get("is_active")
+#         if "image" in request.FILES:
+#             obj.image = request.FILES.get("image")
+#         obj.save()
+#         return redirect("news")
+#     return render(request, "main.html",{"agree":"yes"})

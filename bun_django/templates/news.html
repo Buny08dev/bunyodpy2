@@ -71,9 +71,10 @@
 {% if is_paginated %}
 <div class="pagination">
     <div class="step-links">
+
         {% if products.has_previous %}
             <a href="?page=1" class="page-link">&laquo; first</a>
-            <a href="?{% change_page_filter page=product.previous_page_number %}" class="page-link">prev</a>
+            <a href="?{% change_page_filter page=products.previous_page_number %}" class="page-link">prev</a>
         {% endif %}
 
         {% for page in products.paginator.page_range %}

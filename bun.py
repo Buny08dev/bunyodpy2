@@ -320,3 +320,26 @@
 # print("-".join(map(lambda x:x.lower(), name.split())))
 # b=time()
 # print(f"{a:.30f},\n{a:.30f}")
+
+# from timeit import timeit
+
+
+# def switch():
+#     b = 200
+#     match b:
+#         case 200:
+#             return "ok"
+# def condition():
+#     a = 200
+#     if a == 200:
+#         return 'ok'
+#     else:
+#         return 'error'
+    
+# work=timeit(switch,number=1000)
+# print(f'switch {work}')
+
+# work2=timeit(condition,number=1000)
+
+# print(f'condition {work2}')
+
