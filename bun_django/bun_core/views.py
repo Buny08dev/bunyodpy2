@@ -7,6 +7,8 @@ from django.urls import reverse_lazy
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView,UpdateAPIView,CreateAPIView,RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
+from rest_framework import viewsets
+
 # 
 from bun_core.forms import AddProduct
 from bun_core.models import bunbase,Categories,Products
@@ -32,17 +34,22 @@ from bun_core.serializers import ProductsApiForm
 #         return Response({"title":title})
 
 
-class ProductApi(ListAPIView):
-   queryset=Products.objects.all()
-   serializer_class=ProductsApiForm
+class ProductsViewSet(viewsets.ModelViewSet):
+    queryset=Products.objects.all()
+    serializer_class=ProductsApiForm
 
-class ProductViewApi(RetrieveUpdateDestroyAPIView):
-   queryset=Products.objects.all()
-   serializer_class=ProductsApiForm
 
-class ProductCreateApi(CreateAPIView):
-   queryset=Products.objects.all()
-   serializer_class=ProductsApiForm
+# class ProductApi(ListAPIView):
+#    queryset=Products.objects.all()
+#    serializer_class=ProductsApiForm
+
+# class ProductViewApi(RetrieveUpdateDestroyAPIView):
+#    queryset=Products.objects.all()
+#    serializer_class=ProductsApiForm
+
+# class ProductCreateApi(CreateAPIView):
+#    queryset=Products.objects.all()
+#    serializer_class=ProductsApiForm
 
 # Create your views here.
 class MainView(View):
